@@ -10,14 +10,22 @@
         <TextBlock
             Text="Select Item"
             FontSize="25"
-            Margin="0 010 0 25"/>
+            Margin="0 0 0 10"/>
         <Label Margin="0">Item:</Label>
         <ComboBox
             Padding="3"
-            Margin="0 0 0 5"/>
-        <TextBox Text="Quantity: "/>
+            Margin="0 0 0 5"
+            IsEditable="True"
+            x:Name="ItemSelecto"
+            IsTextSearchEnabled="False"
+            StaysOpenOnEdit="True"
+            DisplayMemberPath="name"
+            ItemsSource="{Binding FilteredAssetsList, UpdateSourceTrigger=PropertyChanged}"
+            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label>Quantity:</Label>
+        <TextBox/>
         <Button
             Width="50"
-            Margin="0 70 0 0">Login</Button>
+            Margin="0 25 0 0">Add</Button>
     </StackPanel>
 </Window>

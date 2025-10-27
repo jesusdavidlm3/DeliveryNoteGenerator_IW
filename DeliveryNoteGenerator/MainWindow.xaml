@@ -5,17 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeliveryNoteGenerator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
+        Title="Interactive Workders delivery note generator" Height="500" Width="800">
     <StackPanel HorizontalAlignment="Center">
-        <TextBlock Text="Delivery note Generator" FontSize="40"/>
+        <TextBlock Text="Delivery note Generator" FontSize="40" Margin="0 0 0 30"/>
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -25,15 +22,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
-            <Label Grid.Row="0" Grid.Column="1">Date: </Label>
-            <DatePicker Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
-            
-            <Label Grid.Row="2">Delivered By:</Label>
+            <Label Grid.Row="0">Responsible:</Label>
             <ComboBox
-                Grid.Row="3"
+                Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                x:Name="DeliveredSelector"
+                x:Name="ResponsibleSelector"
                 IsEditable="True"
                 IsTextSearchEnabled="False"
                 StaysOpenOnEdit="True"
@@ -41,15 +35,12 @@
                 DisplayMemberPath="name"
                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
             
-            <Label Grid.Row="2" Grid.Column="3">Received By: </Label>
-            <ComboBox Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"></ComboBox>
-            
-            <Label Grid.Row="4" Grid.Column="0">Responsible: </Label>
-            <ComboBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"></ComboBox>
-            
-            <Label Grid.Row="4" Grid.Column="3">Identification:</Label>
-            <TextBox Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2"></TextBox>
+            <Label Grid.Row="0" Grid.Column="3">Date: </Label>
+            <DatePicker Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></DatePicker>
         </Grid>
+        
+        
+        <Button Margin="50" Width="60" Click="OpenAddItemModal">Add Item</Button>
         
         <Button Margin="50" Width="60">Issue</Button>
     </StackPanel>

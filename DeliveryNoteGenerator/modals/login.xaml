@@ -11,7 +11,7 @@
             TextAlignment="Center"
             Text="Delivery Note Generator"
             FontSize="25"
-            Margin="0 010 0 25"/>
+            Margin="0 0 0 25"/>
         <Label>Token: </Label>
         <TextBox
             Width="250"
@@ -19,7 +19,7 @@
             Name="TokenField"/>
         <Button
             Width="50"
-            Margin="0 65 0 0"
+            Margin="0 40 0 0"
             Click="SetToken">Login</Button>
     </StackPanel>
 </Window>

@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using DeliveryNoteGenerator.Models;
 using System.Net.Http;
 using System.Text.Json;
+using DeliveryNoteGenerator.modals;
 using DeliveryNoteGenerator.ViewModels;
 
 namespace DeliveryNoteGenerator;
@@ -26,7 +27,12 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         var ViewModel = new UsersListViewModel();
-        ViewModel.getValues();
         DataContext = ViewModel;
+    }
+
+    private void OpenAddItemModal(object sender, RoutedEventArgs e)
+    {
+        var AddItemModal = new ItemSelector();
+        AddItemModal.ShowDialog();
     }
 }

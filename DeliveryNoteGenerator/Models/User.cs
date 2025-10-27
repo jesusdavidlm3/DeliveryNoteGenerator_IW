@@ -25,9 +25,9 @@ public class User
 
         return resultList;
     }
-}
-
-class RootDto
-{
-    public List <User> rows { get; set; }
+    
+    private class RootDto
+    {
+        public List <User> rows { get; set; }
+    }
 }

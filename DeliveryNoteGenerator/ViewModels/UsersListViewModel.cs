@@ -34,13 +34,16 @@ public class UsersListViewModel : INotifyPropertyChanged
         }
     }
 
-    public UsersListViewModel(){ }
+    public UsersListViewModel()
+    {
+        getValues();
+    }
 
     public async Task getValues()
     {
         var response = await User.GetAllUsersList();
-        this.AllUsersList = new ObservableCollection<User>(response);
-        this.FilteredUsersList = new ObservableCollection<User>(response);
+        AllUsersList = new ObservableCollection<User>(response);
+        FilteredUsersList = new ObservableCollection<User>(response);
     }
 
     private void FilterUsers()
