@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WpfApp1.modals;
+namespace DeliveryNoteGenerator.modals;
 
 public partial class confirmation : Window
 {

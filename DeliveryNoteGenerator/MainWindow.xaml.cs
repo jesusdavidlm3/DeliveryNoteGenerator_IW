@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,8 +10,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DeliveryNoteGenerator.Models;
+using System.Net.Http;
+using System.Text.Json;
+using DeliveryNoteGenerator.ViewModels;
 
-namespace WpfApp1;
+namespace DeliveryNoteGenerator;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -19,5 +25,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        var ViewModel = new UsersListViewModel();
+        ViewModel.getValues();
+        DataContext = ViewModel;
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
-using WpfApp1.modals;
+using DeliveryNoteGenerator.modals;
 
-namespace WpfApp1;
+namespace DeliveryNoteGenerator;
 
 /// <summary>
 /// Interaction logic for App.xaml
