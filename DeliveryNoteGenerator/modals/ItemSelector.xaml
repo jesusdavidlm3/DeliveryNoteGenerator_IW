@@ -21,7 +21,8 @@
             StaysOpenOnEdit="True"
             DisplayMemberPath="name"
             ItemsSource="{Binding FilteredAssetsList, UpdateSourceTrigger=PropertyChanged}"
-            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedAset, Mode=TwoWay}"/>
         <Label>Quantity:</Label>
         <TextBox/>
         <Button

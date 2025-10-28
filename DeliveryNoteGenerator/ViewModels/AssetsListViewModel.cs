@@ -9,6 +9,7 @@ public class AssetsListViewModel : INotifyPropertyChanged
 {
     private string _SearchText { get; set; }
     private ObservableCollection<Asset> AllAssetsList { get; set; }
+    private Asset _SelectedAsset { get; set; }
     public ObservableCollection<Asset> _FilteredAssetsList { get; set; }
 
     public string SearchText
@@ -25,10 +26,20 @@ public class AssetsListViewModel : INotifyPropertyChanged
     public ObservableCollection<Asset> FilteredAssetsList
     {
         get => _FilteredAssetsList;
+        set => _FilteredAssetsList = value;
+    }
+
+    public Asset SelectedAset
+    {
+        get => _SelectedAsset;
         set
         {
-            _FilteredAssetsList = value;
-            OnPropertyChanged(nameof(FilteredAssetsList));
+            _SelectedAsset = value;
+            if (_SelectedAsset != null)
+            {
+                _SearchText = _SelectedAsset.name;
+            }
+            OnPropertyChanged(nameof(SearchText));
         }
     }
 

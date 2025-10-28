@@ -12,6 +12,7 @@ public class UsersListViewModel : INotifyPropertyChanged
     private string _SearchText;
     private ObservableCollection<User> AllUsersList { get; set; }
     private ObservableCollection<User> _FilteredUsersList { get; set; }
+    private User _SelectedUser { get; set; }
 
     public string SearchText
     {
@@ -20,19 +21,28 @@ public class UsersListViewModel : INotifyPropertyChanged
         {
             _SearchText = value;
             FilterUsers();
-            OnPropertyChanged(nameof(SearchText));
         }
     }
 
     public ObservableCollection<User> FilteredUsersList
     {
         get => _FilteredUsersList;
+        set => _FilteredUsersList = value;
+    }
+
+    public User SelectedUser
+    {
+        get => _SelectedUser;
         set
         {
-            _FilteredUsersList = value;
-            OnPropertyChanged(nameof(FilteredUsersList));
+            _SelectedUser = value;
+            if (_SelectedUser != null)
+            {
+                _SearchText = _SelectedUser.name;
+            }
+            OnPropertyChanged(nameof(SearchText));
         }
-    }
+    } 
 
     public UsersListViewModel()
     {
