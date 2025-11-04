@@ -2,32 +2,44 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
+using System.Windows.Documents.DocumentStructures;
 using DeliveryNoteGenerator.Models;
 
 namespace DeliveryNoteGenerator.ViewModels;
 
-public class UsersListViewModel : INotifyPropertyChanged
+public class MainWindowViewModel : ViewModelBase
 {
-
     private string _SearchText;
     private ObservableCollection<User> AllUsersList { get; set; }
     private ObservableCollection<User> _FilteredUsersList { get; set; }
     private User _SelectedUser { get; set; }
+    private ObservableCollection<Asset> _SelectedAssets { get; set; }
 
     public string SearchText
     {
         get => _SearchText;
         set
         {
-            _SearchText = value;
-            FilterUsers();
+            if (_SearchText != value)
+            {
+                _SearchText = value;
+                FilterUsers();
+                OnPropertyChanged();                
+            }
         }
     }
 
     public ObservableCollection<User> FilteredUsersList
     {
         get => _FilteredUsersList;
-        set => _FilteredUsersList = value;
+        set
+        {
+            if (_FilteredUsersList != value)
+            {
+                _FilteredUsersList = value;
+                OnPropertyChanged();                
+            }
+        }
     }
 
     public User SelectedUser
@@ -35,16 +47,29 @@ public class UsersListViewModel : INotifyPropertyChanged
         get => _SelectedUser;
         set
         {
-            _SelectedUser = value;
-            if (_SelectedUser != null)
+            if (_SelectedUser != value)
             {
-                _SearchText = _SelectedUser.name;
+                _SearchText = value.name;
+                _SelectedUser = value;
+                OnPropertyChanged();   
             }
-            OnPropertyChanged(nameof(SearchText));
         }
-    } 
+    }
 
-    public UsersListViewModel()
+    public ObservableCollection<Asset> SelectedAssets
+    {
+        get => _SelectedAssets;
+        set
+        {
+            if (_SelectedAssets != value)
+            {
+                _SelectedAssets = value;
+                OnPropertyChanged();   
+            }
+        }
+    }
+
+    public MainWindowViewModel()
     {
         getValues();
     }
@@ -59,26 +84,6 @@ public class UsersListViewModel : INotifyPropertyChanged
     private void FilterUsers()
     {
         List<User> FilteredList = AllUsersList.Where(u => $"{u.name}".ToLower().Contains(SearchText)).ToList();
-        _FilteredUsersList.Clear();
-        foreach (var user in FilteredList)
-        {
-            _FilteredUsersList.Add(user);
-        }
-        OnPropertyChanged(nameof(FilteredUsersList));
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
+        FilteredUsersList = new ObservableCollection<User>(FilteredList);
     }
 }

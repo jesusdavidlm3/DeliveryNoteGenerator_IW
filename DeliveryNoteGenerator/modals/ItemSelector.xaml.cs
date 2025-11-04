@@ -8,7 +8,7 @@ public partial class ItemSelector : Window
     public ItemSelector()
     {
         InitializeComponent();
-        var viewModel = new AssetsListViewModel();
+        var viewModel = new ItemSelectorViewModel();
         DataContext = viewModel;
     }
 }

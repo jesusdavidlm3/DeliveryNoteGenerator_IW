@@ -5,28 +5,39 @@ using DeliveryNoteGenerator.Models;
 
 namespace DeliveryNoteGenerator.ViewModels;
 
-public class AssetsListViewModel : INotifyPropertyChanged
+public class ItemSelectorViewModel : ViewModelBase
 {
     private string _SearchText { get; set; }
     private ObservableCollection<Asset> AllAssetsList { get; set; }
     private Asset _SelectedAsset { get; set; }
     public ObservableCollection<Asset> _FilteredAssetsList { get; set; }
+    public int Quantity { get; set; }
 
     public string SearchText
     {
         get => _SearchText;
         set
         {
-            _SearchText = value;
-            FilterAssets();
-            OnPropertyChanged(nameof(FilteredAssetsList));
+            if (_SearchText != value)
+            {
+                _SearchText = value;
+                FilterAssets();
+                OnPropertyChanged();                
+            }
         }
     }
 
     public ObservableCollection<Asset> FilteredAssetsList
     {
         get => _FilteredAssetsList;
-        set => _FilteredAssetsList = value;
+        set
+        {
+            if (_FilteredAssetsList != value)
+            {
+                _FilteredAssetsList = value;
+                OnPropertyChanged();
+            }
+        }
     }
 
     public Asset SelectedAset
@@ -34,17 +45,18 @@ public class AssetsListViewModel : INotifyPropertyChanged
         get => _SelectedAsset;
         set
         {
-            _SelectedAsset = value;
-            if (_SelectedAsset != null)
+            if (_SelectedAsset != value)
             {
-                _SearchText = _SelectedAsset.name;
+                _SelectedAsset = value;
+                _SearchText = value.name;
+                OnPropertyChanged();
             }
-            OnPropertyChanged(nameof(SearchText));
         }
     }
 
-    public AssetsListViewModel()
+    public ItemSelectorViewModel()
     {
+        Quantity = 1;
         GetValues();
     }
 
@@ -58,26 +70,6 @@ public class AssetsListViewModel : INotifyPropertyChanged
     private void FilterAssets()
     {
         var filteredList = AllAssetsList.Where(a => $"{a.name}".ToLower().Contains(SearchText) || $"{a.asset_tag}".ToLower().Contains(SearchText)).ToList();
-        _FilteredAssetsList.Clear();
-        foreach (var asset in filteredList)
-        {
-            _FilteredAssetsList.Add(asset);            
-        }
-        OnPropertyChanged(nameof(FilteredAssetsList));
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
+        FilteredAssetsList = new ObservableCollection<Asset>(filteredList);
     }
 }

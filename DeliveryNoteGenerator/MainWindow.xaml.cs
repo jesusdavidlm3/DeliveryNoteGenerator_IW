@@ -26,8 +26,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        var ViewModel = new UsersListViewModel();
-        DataContext = ViewModel;
     }
 
     private void OpenAddItemModal(object sender, RoutedEventArgs e)

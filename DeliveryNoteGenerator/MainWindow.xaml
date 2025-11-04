@@ -4,8 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeliveryNoteGenerator"
+        xmlns:viewmodels="clr-namespace:DeliveryNoteGenerator.ViewModels"
+        xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime"
         mc:Ignorable="d"
-        Title="Interactive Workders delivery note generator" Height="500" Width="800">
+        Title="Interactive Workers delivery note generator" Height="500" Width="800">
+    
+    <Window.Resources>
+        <viewmodels:MainWindowViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+        
     <StackPanel HorizontalAlignment="Center">
         <TextBlock Text="Delivery note Generator" FontSize="40" Margin="0 0 0 30"/>
         <Grid >
@@ -31,17 +38,24 @@
                 IsEditable="True"
                 IsTextSearchEnabled="False"
                 StaysOpenOnEdit="True"
-                ItemsSource="{Binding FilteredUsersList, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{Binding Source={StaticResource ViewModel}, Path=FilteredUsersList, Mode=TwoWay}"
                 DisplayMemberPath="name"
-                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding Source={StaticResource ViewModel}, Path=SearchText, Mode=TwoWay}"
+                SelectedItem="{Binding Source={StaticResource ViewModel}, Path=SelectedUser, Mode=OneWayToSource}"/>
             
             <Label Grid.Row="0" Grid.Column="3">Date: </Label>
             <DatePicker Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></DatePicker>
         </Grid>
         
+        <DataGrid Margin="0 10" CanUserResizeColumns="False" Width="550" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=SelectedAssets, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Asset Tag" Width="150"/>
+                <DataGridTextColumn Header="Nombre" Width="300"/>
+                <DataGridTextColumn Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
         
-        <Button Margin="50" Width="60" Click="OpenAddItemModal">Add Item</Button>
+        <Button Margin="50" Width="60" Click="OpenAddItemModal" Content="Add Item"/>
         
         <Button Margin="50" Width="60">Issue</Button>
     </StackPanel>

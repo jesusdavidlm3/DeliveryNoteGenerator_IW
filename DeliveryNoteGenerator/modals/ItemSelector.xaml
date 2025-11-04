@@ -4,8 +4,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:DeliveryNoteGenerator.modals"
+        xmlns:viewmodels="clr-namespace:DeliveryNoteGenerator.ViewModels"
         mc:Ignorable="d"
         Title="ItemSelector" Height="250" Width="400">
+    
+    <Window.Resources>
+        <viewmodels:ItemSelectorViewModel x:Key="ViewModel"/>    
+    </Window.Resources>
+    
     <StackPanel HorizontalAlignment="Center" >
         <TextBlock
             Text="Select Item"
@@ -20,13 +26,16 @@
             IsTextSearchEnabled="False"
             StaysOpenOnEdit="True"
             DisplayMemberPath="name"
-            ItemsSource="{Binding FilteredAssetsList, UpdateSourceTrigger=PropertyChanged}"
-            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding SelectedAset, Mode=TwoWay}"/>
-        <Label>Quantity:</Label>
-        <TextBox/>
+            ItemsSource="{Binding Source={StaticResource ViewModel}, Path=FilteredAssetsList, Mode=TwoWay}"
+            Text="{Binding Source={StaticResource ViewModel}, Path=SearchText, Mode=TwoWay}"
+            SelectedItem="{Binding Source={StaticResource ViewModel}, Path=SelectedAset, Mode=TwoWay}"/>
+        <Label Content="Quantity:"/>
+        <TextBox
+            Text="{Binding Source={StaticResource ViewModel}, Path=Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
         <Button
+            Content="Add"
             Width="50"
-            Margin="0 25 0 0">Add</Button>
+            Margin="0 25 0 0"/>
     </StackPanel>
 </Window>
