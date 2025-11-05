@@ -13,7 +13,7 @@ public class MainWindowViewModel : ViewModelBase
     private ObservableCollection<User> AllUsersList { get; set; }
     private ObservableCollection<User> _FilteredUsersList { get; set; }
     private User _SelectedUser { get; set; }
-    private ObservableCollection<Asset> _SelectedAssets { get; set; }
+    public static ObservableCollection<Asset> _SelectedAssets { get; set; } = new ObservableCollection<Asset>();
 
     public string SearchText
     {

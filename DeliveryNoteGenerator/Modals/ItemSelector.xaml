@@ -36,6 +36,7 @@
         <Button
             Content="Add"
             Width="50"
-            Margin="0 25 0 0"/>
+            Margin="0 25 0 0"
+            Command="{Binding Source={StaticResource ViewModel}, Path=AddItemToList}"/>
     </StackPanel>
 </Window>

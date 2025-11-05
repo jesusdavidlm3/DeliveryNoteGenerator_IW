@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using DeliveryNoteGenerator.Classes;
 using DeliveryNoteGenerator.Models;
 
 namespace DeliveryNoteGenerator.ViewModels;
@@ -53,11 +55,16 @@ public class ItemSelectorViewModel : ViewModelBase
             }
         }
     }
-
+    
+    public RelayCommand AddItemToList { get; }
+    
     public ItemSelectorViewModel()
     {
         Quantity = 1;
         GetValues();
+        AddItemToList = new RelayCommand(
+            execute: _ => _AddItemToList()
+        );
     }
 
     private async Task GetValues()
@@ -72,4 +79,10 @@ public class ItemSelectorViewModel : ViewModelBase
         var filteredList = AllAssetsList.Where(a => $"{a.name}".ToLower().Contains(SearchText) || $"{a.asset_tag}".ToLower().Contains(SearchText)).ToList();
         FilteredAssetsList = new ObservableCollection<Asset>(filteredList);
     }
+
+    private void _AddItemToList()
+    {
+        MainWindowViewModel._SelectedAssets.Add(SelectedAset);
+    }
+    
 }
