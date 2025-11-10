@@ -57,13 +57,15 @@ public class ItemSelectorViewModel : ViewModelBase
     }
     
     public RelayCommand AddItemToList { get; }
+    public Action? CloseWindow { get; set; }
     
     public ItemSelectorViewModel()
     {
         Quantity = 1;
         GetValues();
         AddItemToList = new RelayCommand(
-            execute: _ => _AddItemToList()
+            execute: _ => _AddItemToList(),
+            canExecute: _ => _SelectedAsset != null
         );
     }
 
@@ -82,7 +84,9 @@ public class ItemSelectorViewModel : ViewModelBase
 
     private void _AddItemToList()
     {
+        SelectedAset.Quantity = Quantity;
         MainWindowViewModel._SelectedAssets.Add(SelectedAset);
+        CloseWindow?.Invoke();
     }
     
 }

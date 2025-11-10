@@ -8,7 +8,7 @@ public partial class ItemSelector : Window
     public ItemSelector()
     {
         InitializeComponent();
-        var viewModel = new ItemSelectorViewModel();
-        DataContext = viewModel;
+        var vm = (ItemSelectorViewModel)this.Resources["ViewModel"];
+        vm.CloseWindow = () => this.Close();
     }
 }

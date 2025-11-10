@@ -7,19 +7,18 @@
         xmlns:viewmodels="clr-namespace:DeliveryNoteGenerator.ViewModels"
         xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime"
         mc:Ignorable="d"
-        Title="Interactive Workers delivery note generator" Height="500" Width="800">
+        Title="Interactive Workers delivery note generator" Height="600" Width="900">
     
     <Window.Resources>
         <viewmodels:MainWindowViewModel x:Key="ViewModel"/>
     </Window.Resources>
         
     <StackPanel HorizontalAlignment="Center">
-        <TextBlock Text="Delivery note Generator" FontSize="40" Margin="0 0 0 30"/>
+        <TextBlock Text="Delivery note Generator" FontSize="40" Margin="0 0 0 30" TextAlignment="Center"/>
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
-
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -47,11 +46,26 @@
             <DatePicker Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></DatePicker>
         </Grid>
         
-        <DataGrid Margin="0 10" CanUserResizeColumns="False" Width="550" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=SelectedAssets, Mode=TwoWay}">
+        <DataGrid 
+            Margin="0 10"
+            CanUserResizeColumns="False"
+            Width="550"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Source={StaticResource ViewModel}, Path=SelectedAssets, Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Asset Tag" Width="150"/>
-                <DataGridTextColumn Header="Nombre" Width="300"/>
-                <DataGridTextColumn Width="100"/>
+                <DataGridTextColumn Header="Asset Tag" Width="90" Binding="{Binding asset_tag}"/>
+                <DataGridTextColumn Header="Name" Width="230" Binding="{Binding name}"/>
+                <DataGridTextColumn Header="Quantity" Width="70" Binding="{Binding Quantity}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Content="Delete"
+                                Command="{Binding Source={StaticResource ViewModel}, Path=DeleteItem}"
+                                CommandParameter="{Binding id}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         

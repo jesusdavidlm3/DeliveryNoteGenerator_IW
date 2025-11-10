@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
 using System.Windows.Documents.DocumentStructures;
+using DeliveryNoteGenerator.Classes;
 using DeliveryNoteGenerator.Models;
 
 namespace DeliveryNoteGenerator.ViewModels;
@@ -68,10 +69,14 @@ public class MainWindowViewModel : ViewModelBase
             }
         }
     }
+    
+    public RelayCommand DeleteItem { get; }
 
     public MainWindowViewModel()
     {
         getValues();
+        DeleteItem = new RelayCommand(
+            execute: id => _DeleteItem((int)id));
     }
 
     public async Task getValues()
@@ -85,5 +90,11 @@ public class MainWindowViewModel : ViewModelBase
     {
         List<User> FilteredList = AllUsersList.Where(u => $"{u.name}".ToLower().Contains(SearchText)).ToList();
         FilteredUsersList = new ObservableCollection<User>(FilteredList);
+    }
+
+    public void _DeleteItem(int id)
+    {
+        var itemToDelete = _SelectedAssets.FirstOrDefault(a => a.id == id);
+        _SelectedAssets.Remove(itemToDelete);
     }
 }
