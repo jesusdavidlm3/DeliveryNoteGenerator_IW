@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DeliveryNoteGenerator.modals"
         xmlns:viewmodels="clr-namespace:DeliveryNoteGenerator.ViewModels"
         mc:Ignorable="d"
-        Title="ItemSelector" Height="250" Width="400">
+        Title="ItemSelector" Height="250" Width="400" ResizeMode="NoResize">
     
     <Window.Resources>
         <viewmodels:ItemSelectorViewModel x:Key="ViewModel"/>    
@@ -16,7 +16,8 @@
         <TextBlock
             Text="Select Item"
             FontSize="25"
-            Margin="0 0 0 10"/>
+            Margin="0 0 0 10"
+            TextAlignment="Center"/>
         <Label Margin="0">Item:</Label>
         <ComboBox
             Padding="3"

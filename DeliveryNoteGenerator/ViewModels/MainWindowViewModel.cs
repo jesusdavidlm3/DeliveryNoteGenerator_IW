@@ -5,6 +5,9 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Windows.Documents.DocumentStructures;
 using DeliveryNoteGenerator.Classes;
 using DeliveryNoteGenerator.Models;
+using DeliveryNoteGenerator.PDF;
+using QuestPDF.Fluent;
+
 
 namespace DeliveryNoteGenerator.ViewModels;
 
@@ -71,12 +74,16 @@ public class MainWindowViewModel : ViewModelBase
     }
     
     public RelayCommand DeleteItem { get; }
+    public RelayCommand IssueNote { get; }
 
     public MainWindowViewModel()
     {
         getValues();
         DeleteItem = new RelayCommand(
             execute: id => _DeleteItem((int)id));
+        IssueNote = new RelayCommand(
+            execute: _ => _IssueNote(),
+            canExecute: _ => ((_SelectedAssets.Count >= 1) && (_SelectedUser != null)));
     }
 
     public async Task getValues()
@@ -92,9 +99,15 @@ public class MainWindowViewModel : ViewModelBase
         FilteredUsersList = new ObservableCollection<User>(FilteredList);
     }
 
-    public void _DeleteItem(int id)
+    private void _DeleteItem(int id)
     {
         var itemToDelete = _SelectedAssets.FirstOrDefault(a => a.id == id);
         _SelectedAssets.Remove(itemToDelete);
+    }
+
+    private void _IssueNote()
+    {
+        var document = new IssueNote();
+        document.GeneratePdfAndShow();
     }
 }

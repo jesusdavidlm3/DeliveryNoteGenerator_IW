@@ -7,7 +7,7 @@ public static class Client
     private static string _apiKey = "";
     public static HttpClient client;
 
-    public static async void setApiKey(string key, Window loginWIndow)
+    public static async void setApiKey(string key, Window loginWindow)
     {   
         client = new HttpClient()
         {
@@ -23,7 +23,7 @@ public static class Client
         if (res.IsSuccessStatusCode)
         {
             Window mainWindow = new MainWindow();
-            loginWIndow.Close();
+            loginWindow.Close();
             mainWindow.Show();
         }
         Console.WriteLine(res.StatusCode);
