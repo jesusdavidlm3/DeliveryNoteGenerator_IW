@@ -65,7 +65,7 @@ public class ItemSelectorViewModel : ViewModelBase
         GetValues();
         AddItemToList = new RelayCommand(
             execute: _ => _AddItemToList(),
-            canExecute: _ => _SelectedAsset != null
+            canExecute: _ => ((_SelectedAsset != null) && (Quantity >= 1))
         );
     }
 

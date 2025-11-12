@@ -14,6 +14,7 @@ using DeliveryNoteGenerator.Models;
 using System.Net.Http;
 using System.Text.Json;
 using DeliveryNoteGenerator.modals;
+using DeliveryNoteGenerator.Modals;
 using DeliveryNoteGenerator.ViewModels;
 
 namespace DeliveryNoteGenerator;
@@ -32,5 +33,11 @@ public partial class MainWindow : Window
     {
         var AddItemModal = new ItemSelector();
         AddItemModal.ShowDialog();
+    }
+
+    private void OpenNotListedItemModal(object sender, RoutedEventArgs e)
+    {
+        var NotListedItem = new NotListedItem();
+        NotListedItem.ShowDialog();
     }
 }

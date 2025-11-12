@@ -5,12 +5,12 @@ namespace DeliveryNoteGenerator.Models;
 
 public class Asset
 {
-    public int id { get; set; }
+    public int? id { get; set; }
     public string name { get; set; }
     public string asset_tag { get; set; }
     public int? Quantity { get; set; }
 
-    public Asset(int id, string name, string asset_tag, int? quantity = null)
+    public Asset(int? id, string name, string asset_tag, int? quantity = null)
     {
         this.id = id;
         this.name = name;

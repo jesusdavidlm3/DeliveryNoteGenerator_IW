@@ -1,0 +1,35 @@
+﻿<Window x:Class="DeliveryNoteGenerator.Modals.NotListedItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DeliveryNoteGenerator.Modals"
+        xmlns:viewmodels="clr-namespace:DeliveryNoteGenerator.ViewModels"
+        mc:Ignorable="d"
+        Title="ItemSelector" Height="250" Width="400" ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <viewmodels:NotListedItemViewModel x:Key="viewmodel"/>
+    </Window.Resources>
+    
+    <StackPanel HorizontalAlignment="Center">
+        <TextBlock
+            Text="Add not listed item"
+            FontSize="25"
+            TextAlignment="Center"
+            Margin="0 0 0 10"/>
+        <Label
+            Content="Item Name:"/>
+        <TextBox
+            Text="{Binding Source={StaticResource viewmodel}, Path=ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label
+            Content="Quantity:"/>
+        <TextBox
+            Text="{Binding Source={StaticResource viewmodel}, Path=Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button
+            Margin="0 25 0 0"
+            Width="50"
+            Content="Add"
+            Command="{Binding Source={StaticResource viewmodel}, Path=AddItem}"/>
+    </StackPanel>
+</Window>

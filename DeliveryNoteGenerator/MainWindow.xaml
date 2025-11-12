@@ -78,11 +78,18 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        <Button 
-            Margin="0 15 0 0" 
-            Width="60" 
-            Click="OpenAddItemModal" 
-            Content="Add Item"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button 
+                Margin="0 15 5 0" 
+                Width="60" 
+                Click="OpenAddItemModal" 
+                Content="Add Item"/>
+            <Button 
+                Margin="5 15 0 0" 
+                Width="90" 
+                Click="OpenNotListedItemModal" 
+                Content="Not listed item"/>
+        </StackPanel>
         
         <Button 
             Margin="0 100 0 0" 
