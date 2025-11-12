@@ -107,7 +107,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private void _IssueNote()
     {
-        var document = new IssueNote();
+        var document = new IssueNote(SelectedUser, SelectedAssets);
         document.GeneratePdfAndShow();
     }
 }
