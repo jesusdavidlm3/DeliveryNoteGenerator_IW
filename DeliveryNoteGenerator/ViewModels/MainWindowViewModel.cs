@@ -17,7 +17,8 @@ public class MainWindowViewModel : ViewModelBase
     private ObservableCollection<User> AllUsersList { get; set; }
     private ObservableCollection<User> _FilteredUsersList { get; set; }
     private User _SelectedUser { get; set; }
-    public static ObservableCollection<Asset> _SelectedAssets { get; set; } = new ObservableCollection<Asset>();
+    private static ObservableCollection<Asset> _SelectedAssets { get; set; } = new ObservableCollection<Asset>();
+    private static User LoggedUser { get; set; }
 
     public string SearchText
     {
@@ -99,6 +100,16 @@ public class MainWindowViewModel : ViewModelBase
         FilteredUsersList = new ObservableCollection<User>(FilteredList);
     }
 
+    public static void AddItem(Asset asset)
+    {
+        _SelectedAssets.Add(asset);
+    }
+
+    public static void SetLoggedUser(User user)
+    {
+        LoggedUser = user;
+    }
+
     private void _DeleteItem(int id)
     {
         var itemToDelete = _SelectedAssets.FirstOrDefault(a => a.id == id);
@@ -107,7 +118,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private void _IssueNote()
     {
-        var document = new IssueNote(SelectedUser, SelectedAssets);
+        var document = new IssueNote(SelectedUser, SelectedAssets, LoggedUser);
         document.GeneratePdfAndShow();
     }
 }

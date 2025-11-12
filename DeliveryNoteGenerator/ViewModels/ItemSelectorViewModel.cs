@@ -85,7 +85,7 @@ public class ItemSelectorViewModel : ViewModelBase
     private void _AddItemToList()
     {
         SelectedAset.Quantity = Quantity;
-        MainWindowViewModel._SelectedAssets.Add(SelectedAset);
+        MainWindowViewModel.AddItem(SelectedAset);
         CloseWindow?.Invoke();
     }
     

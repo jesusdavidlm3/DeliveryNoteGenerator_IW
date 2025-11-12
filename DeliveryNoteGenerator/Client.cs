@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using DeliveryNoteGenerator.Models;
+using System.Text.Json;
+using DeliveryNoteGenerator.ViewModels;
 
 namespace DeliveryNoteGenerator;
 using System.Net.Http;
@@ -25,7 +28,10 @@ public static class Client
             Window mainWindow = new MainWindow();
             loginWindow.Close();
             mainWindow.Show();
+            string resContent = await res.Content.ReadAsStringAsync();
+            User user = JsonSerializer.Deserialize<User>(resContent)!;
+            MainWindowViewModel.SetLoggedUser(user!);
         }
         Console.WriteLine(res.StatusCode);
-    } 
+    }
 }

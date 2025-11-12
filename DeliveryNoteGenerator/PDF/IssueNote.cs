@@ -13,11 +13,13 @@ public class IssueNote : IDocument
     public DocumentSettings GetSettings() => DocumentSettings.Default;
     public User SelectedUser { get; }
     public ObservableCollection<Asset> SelectedAssets { get; }
+    public User LoggedUser { get; set; }
     
-    public IssueNote(User selectedUser, ObservableCollection<Asset> selectedAssets)
+    public IssueNote(User selectedUser, ObservableCollection<Asset> selectedAssets, User loggedUser)
     {
         SelectedUser = selectedUser;
         SelectedAssets = selectedAssets;
+        LoggedUser = loggedUser;
     }
     
     public void Compose(IDocumentContainer container)
@@ -56,7 +58,7 @@ public class IssueNote : IDocument
         {
             column.Item().Row(row =>
             {
-                row.RelativeItem().PaddingBottom(20).Text($"Yo, {SelectedUser.name}, venezolano, mayor de edad, cedula de identidad _______________ recibo y me responsabilizo por el siguiente equipo:").Justify();
+                row.RelativeItem().PaddingBottom(20).Text($"Yo, {SelectedUser.name}, venezolano, mayor de edad, cedula de identidad _______________ recibo y me responsabilizo por el siguiente equipo:").Justify().FontSize(9);
             });
         
             column.Item().Row(row =>
@@ -72,32 +74,44 @@ public class IssueNote : IDocument
                 
                     table.Header(header =>
                     {
-                        header.Cell().Border(1).Padding(5).Text("Tag").AlignCenter();
-                        header.Cell().Border(1).Padding(5).Text("Descripcion").AlignCenter();
-                        header.Cell().Border(1).Padding(5).Text("Cantidad").AlignCenter();
+                        header.Cell().Border(1).Padding(5).Text("Tag").AlignCenter().FontSize(9);
+                        header.Cell().Border(1).Padding(5).Text("Descripcion").AlignCenter().FontSize(9);
+                        header.Cell().Border(1).Padding(5).Text("Cantidad").AlignCenter().FontSize(9);
                     });
 
                     foreach (var asset in SelectedAssets)
                     {
-                        table.Cell().Border(1).Padding(10).Text(asset.asset_tag).AlignCenter();
-                        table.Cell().Border(1).Padding(10).Text(asset.name);
-                        table.Cell().Border(1).Padding(10).Text($"{asset.Quantity}").AlignCenter();
+                        table.Cell().Border(1).Padding(7).Text(asset.asset_tag).AlignCenter().FontSize(9);
+                        table.Cell().Border(1).Padding(7).Text(asset.name).FontSize(9);
+                        table.Cell().Border(1).Padding(7).Text($"{asset.Quantity}").AlignCenter().FontSize(9);
                     }
                 });
             }); 
             
-            column.Item().Row(row =>
+            column.Item().AlignLeft().Padding(30).Row(row =>
             {
                 row.RelativeItem().Column(column =>
                 {
-                    column.Item().Text("Recibido por:");
-                    column.Item().Text(SelectedUser.name);
-                    column.Item().PaddingBottom(10).Text("Firma:");
-                    column.Item().PaddingBottom(20).Text("______________");
-                    column.Item().Text("Entregado a:");
-                    column.Item().Text(SelectedUser.name);
-                    column.Item().PaddingBottom(10).Text("Firma:");
-                    column.Item().Text("______________");
+                    column.Item().Text("Recibido por:").FontSize(9);
+                    column.Item().Text(SelectedUser.name).FontSize(9);
+                    column.Item().PaddingBottom(10).Text("Firma:").FontSize(9);
+                    column.Item().PaddingBottom(20).Text("___________________").FontSize(9);
+                    column.Item().Text("Entregado por:").FontSize(9);
+                    column.Item().Text(SelectedUser.name).FontSize(9);
+                    column.Item().PaddingBottom(10).Text("Firma:").FontSize(9);
+                    column.Item().Text("___________________").FontSize(9);
+                });
+                
+                row.RelativeItem().AlignRight().Column(column =>
+                {
+                    column.Item().Text("Entregado por:").FontSize(9);
+                    column.Item().Text(LoggedUser.name).FontSize(9);
+                    column.Item().PaddingBottom(10).Text("Firma:").FontSize(9);
+                    column.Item().PaddingBottom(20).Text("___________________").FontSize(9);
+                    column.Item().Text("Recibido por:").FontSize(9);
+                    column.Item().Text(LoggedUser.name).FontSize(9);
+                    column.Item().PaddingBottom(10).Text("Firma:").FontSize(9);
+                    column.Item().Text("___________________").FontSize(9);
                 });
             });
         });

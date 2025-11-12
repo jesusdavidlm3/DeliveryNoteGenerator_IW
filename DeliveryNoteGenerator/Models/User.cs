@@ -15,6 +15,7 @@ public class User
 
     public static async Task<ObservableCollection<User>> GetAllUsersList()
     {
+        
         ObservableCollection<User> resultList = new ObservableCollection<User>();
         string res = await Client.client.GetStringAsync("users");
         RootDto rawUserList = JsonSerializer.Deserialize<RootDto>(res);
