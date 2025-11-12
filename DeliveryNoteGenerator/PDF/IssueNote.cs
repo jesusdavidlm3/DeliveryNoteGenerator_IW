@@ -40,7 +40,7 @@ public class IssueNote : IDocument
         container.Row(row =>
         {
             row.RelativeItem().Column(column => {
-                column.Item().Image("logo.png").FitArea();
+                column.Item().Image("Assets/logo.png").FitArea();
             });
             row.RelativeItem().AlignMiddle().Column(column =>
             {
