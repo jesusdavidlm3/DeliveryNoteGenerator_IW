@@ -14,12 +14,14 @@ public class IssueNote : IDocument
     public User SelectedUser { get; }
     public ObservableCollection<Asset> SelectedAssets { get; }
     public User LoggedUser { get; set; }
+    public DateTime IssueDate { get; set; }
     
-    public IssueNote(User selectedUser, ObservableCollection<Asset> selectedAssets, User loggedUser)
+    public IssueNote(User selectedUser, ObservableCollection<Asset> selectedAssets, User loggedUser, DateTime issueDate)
     {
         SelectedUser = selectedUser;
         SelectedAssets = selectedAssets;
         LoggedUser = loggedUser;
+        IssueDate = issueDate;
     }
     
     public void Compose(IDocumentContainer container)
@@ -46,7 +48,7 @@ public class IssueNote : IDocument
             });
             row.RelativeItem().Column(column =>
             {
-                column.Item().Text("Fecha: 00/00/0000").AlignEnd();
+                column.Item().Text($"Fecha: {IssueDate.Day}/{IssueDate.Month}/{IssueDate.Year}").AlignEnd().FontSize(9);
             });
         });
     }

@@ -19,6 +19,7 @@ public class MainWindowViewModel : ViewModelBase
     private User _SelectedUser { get; set; }
     private static ObservableCollection<Asset> _SelectedAssets { get; set; } = new ObservableCollection<Asset>();
     private static User LoggedUser { get; set; }
+    private DateTime _IssueDate { get; set; }
 
     public string SearchText
     {
@@ -73,6 +74,19 @@ public class MainWindowViewModel : ViewModelBase
             }
         }
     }
+
+    public DateTime IssueDate
+    {
+        get => _IssueDate;
+        set
+        {
+            if (_IssueDate != value)
+            {
+                _IssueDate = value;
+                OnPropertyChanged();
+            }
+        }
+    }
     
     public RelayCommand DeleteItem { get; }
     public RelayCommand IssueNote { get; }
@@ -80,6 +94,7 @@ public class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         getValues();
+        IssueDate = DateTime.Now;
         DeleteItem = new RelayCommand(
             execute: id => _DeleteItem((int)id));
         IssueNote = new RelayCommand(
@@ -118,7 +133,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private void _IssueNote()
     {
-        var document = new IssueNote(SelectedUser, SelectedAssets, LoggedUser);
+        var document = new IssueNote(SelectedUser, SelectedAssets, LoggedUser, IssueDate);
         document.GeneratePdfAndShow();
     }
 }
