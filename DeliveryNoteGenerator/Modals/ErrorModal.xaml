@@ -1,0 +1,24 @@
+﻿<Window x:Class="DeliveryNoteGenerator.Modals.ErrorModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DeliveryNoteGenerator.Modals"
+        mc:Ignorable="d"
+        Title="Error" Height="250" Width="400" ResizeMode="NoResize">
+    <StackPanel HorizontalAlignment="Center">
+        <TextBlock
+            Text="An error was ocurred"
+            TextAlignment="Center"
+            FontSize="25"
+            Margin="0 30 0 10"/>
+        <TextBlock
+            Text="An error was ocurred verifying the items or issuing the note"
+            HorizontalAlignment="Center"/>
+        <Button
+            Content="Close"
+            Margin="0 70 0 0"
+            Width="50"
+            Click="CloseWindow"/>
+    </StackPanel>
+</Window>

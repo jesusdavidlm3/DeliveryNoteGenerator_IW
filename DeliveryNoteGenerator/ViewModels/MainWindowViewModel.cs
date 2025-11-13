@@ -1,9 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.JavaScript;
+using System.Text;
+using System.Text.Json;
 using System.Windows.Documents.DocumentStructures;
 using DeliveryNoteGenerator.Classes;
+using DeliveryNoteGenerator.Modals;
 using DeliveryNoteGenerator.Models;
 using DeliveryNoteGenerator.PDF;
 using QuestPDF.Fluent;
@@ -133,7 +137,25 @@ public class MainWindowViewModel : ViewModelBase
 
     private void _IssueNote()
     {
-        var document = new IssueNote(SelectedUser, SelectedAssets, LoggedUser, IssueDate);
-        document.GeneratePdfAndShow();
+        try
+        {
+            foreach (var asset in SelectedAssets)
+            {
+                if (asset.asset_tag != "-")
+                {
+                    HttpContent content = new StringContent(JsonSerializer.Serialize(new{status_id = 2, checkout_to_type = "user", assigned_user = SelectedUser.id}), Encoding.UTF8, "application/json");
+                    Client.client.PostAsync($"hardware/{asset.id}/checkout", content);                
+                }
+            }
+            var document = new IssueNote(SelectedUser, SelectedAssets, LoggedUser, IssueDate);
+            document.GeneratePdfAndShow();
+        }
+        catch (Exception e)
+        {
+            var errorWindow = new ErrorModal();
+            errorWindow.ShowDialog();
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }
