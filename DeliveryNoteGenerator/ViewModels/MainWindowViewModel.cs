@@ -128,7 +128,7 @@ public class MainWindowViewModel : ViewModelBase
     private void _DeleteItem(int id)
     {
         var itemToDelete = _SelectedAssets.FirstOrDefault(a => a.id == id);
-        _SelectedAssets.Remove(itemToDelete);
+        SelectedAssets.Remove(itemToDelete);
     }
 
     private void _IssueNote()

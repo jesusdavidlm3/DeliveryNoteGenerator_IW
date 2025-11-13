@@ -48,7 +48,8 @@ public class NotListedItemViewModel : ViewModelBase
 
     public void _AddItem()
     {
-        var item = new Asset(null, _ItemName, "-", _Quantity);
+        var randomId = new Random().Next(90000, 100000);
+        var item = new Asset(randomId, _ItemName, "-", _Quantity);
         MainWindowViewModel.AddItem(item);
         CloseWindow.Invoke();
     }
