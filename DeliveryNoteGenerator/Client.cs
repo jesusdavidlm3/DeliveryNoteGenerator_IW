@@ -1,18 +1,19 @@
-﻿using System.Windows;
-using DeliveryNoteGenerator.Models;
+﻿using System.Net.Http;
 using System.Text.Json;
+using System.Windows;
+using DeliveryNoteGenerator.Models;
 using DeliveryNoteGenerator.ViewModels;
 
 namespace DeliveryNoteGenerator;
-using System.Net.Http;
+
 public static class Client
 {
     private static string _apiKey = "";
     public static HttpClient client;
 
-    public static async void setApiKey(string key, Window loginWindow)
+    public static async Task<bool> setApiKey(string key, Window? loginWindow)
     {   
-        client = new HttpClient()
+        client = new HttpClient
         {
             BaseAddress = new Uri("http://10.200.12.13/api/v1/b n"),
             DefaultRequestHeaders =
@@ -26,12 +27,15 @@ public static class Client
         if (res.IsSuccessStatusCode)
         {
             Window mainWindow = new MainWindow();
-            loginWindow.Close();
+            loginWindow?.Close();
             mainWindow.Show();
             string resContent = await res.Content.ReadAsStringAsync();
             User user = JsonSerializer.Deserialize<User>(resContent)!;
             MainWindowViewModel.SetLoggedUser(user!);
+            Console.WriteLine(res.StatusCode);
+            return true;
         }
         Console.WriteLine(res.StatusCode);
+        return false;
     }
 }
